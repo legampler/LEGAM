@@ -1,96 +1,114 @@
-// TEXT TYPING
-const texts = ["Content Creator","Gamers","Streamer"];
-let i = 0;
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Music Player Logic (Lokal MP3) ---
+    const audio = document.getElementById('audioElement');
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const progressBar = document.getElementById('progressBar');
+    const progressContainer = document.getElementById('progressContainer');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const noteIcon = document.querySelector('.note-icon');
 
-function typeText(text, element){
-  element.textContent="";
-  let j = 0;
+    let isPlaying = false;
 
-  let typing = setInterval(()=>{
-    element.textContent += text[j];
-    j++;
+    // Toggle Play/Pause
+    playBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+        } else {
+            audio.play().catch(e => console.log("Audio play blocked by browser:", e));
+        }
+    });
 
-    if(j === text.length){
-      clearInterval(typing);
-    }
+    // Update UI on Play
+    audio.addEventListener('play', () => {
+        isPlaying = true;
+        playIcon.classList.remove('fa-play');
+        playIcon.classList.add('fa-pause');
+        noteIcon.classList.add('playing');
+    });
 
-  },100);
-}
+    // Update UI on Pause
+    audio.addEventListener('pause', () => {
+        isPlaying = false;
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+        noteIcon.classList.remove('playing');
+    });
 
-function loopTyping(){
-  const el = document.getElementById("typing");
-  typeText(texts[i], el);
-  i = (i + 1) % texts.length;
-}
+    // Format time helper (seconds to m:ss)
+    const formatTime = (time) => {
+        if (isNaN(time)) return "0:00";
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
 
-setInterval(loopTyping,3000);
-loopTyping();
+    // Update Progress Bar & Time
+    audio.addEventListener('timeupdate', () => {
+        const { duration, currentTime } = audio;
+        if (duration) {
+            const progressPercent = (currentTime / duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            timeDisplay.innerText = formatTime(currentTime);
+        }
+    });
 
+    // Click on progress bar to seek
+    progressContainer.addEventListener('click', (e) => {
+        const width = progressContainer.clientWidth;
+        const clickX = e.offsetX;
+        const duration = audio.duration;
+        
+        if (duration) {
+            audio.currentTime = (clickX / width) * duration;
+        }
+    });
+    
+    // Reset when audio ends
+    audio.addEventListener('ended', () => {
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+        progressBar.style.width = `0%`;
+        timeDisplay.innerText = "0:00";
+        noteIcon.classList.remove('playing');
+        isPlaying = false;
+    });
 
-// MUSIC PLAYER
-const audio = document.getElementById("bg-music");
-const playBtn = document.getElementById("play-btn");
-const stopBtn = document.getElementById("stop-btn");
-const volumeSlider = document.getElementById("volume");
+    // --- Volume Control Logic ---
+    const volumeSlider = document.getElementById('volumeSlider');
+    const muteBtn = document.getElementById('muteBtn');
+    const muteIcon = document.getElementById('muteIcon');
+    let previousVolume = 1;
 
-let audioCtx;
-let analyser;
-let source;
+    // Change volume via slider
+    volumeSlider.addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value);
+        audio.volume = value;
+        
+        if (value === 0) {
+            muteIcon.className = 'fas fa-volume-mute';
+        } else if (value < 0.5) {
+            muteIcon.className = 'fas fa-volume-down';
+        } else {
+            muteIcon.className = 'fas fa-volume-up';
+        }
+    });
 
-playBtn.addEventListener("click", () => {
-  if(!audioCtx){
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioCtx.createAnalyser();
-    source = audioCtx.createMediaElementSource(audio);
-
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-
-    drawSpectrum();
-  }
-
-  audioCtx.resume();
-  audio.play();
+    // Toggle mute/unmute
+    muteBtn.addEventListener('click', () => {
+        if (audio.volume > 0) {
+            previousVolume = audio.volume;
+            audio.volume = 0;
+            volumeSlider.value = 0;
+            muteIcon.className = 'fas fa-volume-mute';
+        } else {
+            audio.volume = previousVolume > 0 ? previousVolume : 1;
+            volumeSlider.value = audio.volume;
+            if (audio.volume < 0.5) {
+                muteIcon.className = 'fas fa-volume-down';
+            } else {
+                muteIcon.className = 'fas fa-volume-up';
+            }
+        }
+    });
 });
-
-stopBtn.addEventListener("click", () => {
-  audio.pause();
-  audio.currentTime = 0;
-});
-
-volumeSlider.addEventListener("input", () => {
-  audio.volume = volumeSlider.value;
-});
-
-
-// SPECTRUM VISUALIZER
-const canvas = document.getElementById("spectrum");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas() {
-  canvas.width = canvas.parentElement.offsetWidth - 20;
-}
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-
-function drawSpectrum(){
-  requestAnimationFrame(drawSpectrum);
-
-  const bufferLength = analyser.frequencyBinCount;
-  const dataArray = new Uint8Array(bufferLength);
-
-  analyser.getByteFrequencyData(dataArray);
-
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-
-  const barWidth = (canvas.width / bufferLength) * 2.5;
-  let x = 0;
-
-  for(let i = 0; i < bufferLength; i++){
-    const barHeight = dataArray[i] / 2;
-    ctx.fillStyle = "#ff9800";
-    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-    x += barWidth + 1;
-  }
-}
