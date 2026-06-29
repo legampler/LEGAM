@@ -1,0 +1,595 @@
+/* --- Variabel & Reset (TEMA BEBEK PINK LUCU) --- */
+:root {
+    /* Latar Belakang & Teks */
+    --bg-dark: #fdf2f8; /* Soft pink */
+    --text-main: #334155; /* Abu-abu gelap agar kontras & mudah dibaca */
+    --text-muted: #64748b;
+    
+    /* Aksen Bebek (Kuning) */
+    --accent-glow: rgba(250, 204, 21, 0.4);
+    --accent-color: #facc15; 
+    
+    /* Warna Tombol Spesifik */
+    --ig-gradient: linear-gradient(45deg, #f43f5e 0%, #ec4899 50%, #d946ef 100%);
+    --tiktok-color: #1e293b; /* Gelap elegan */
+    --sociabuzz-color: #facc15; /* Kuning Bebek */
+    
+    /* Glassmorphism Terang */
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.9);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: #fbcfe8; /* Base color pink */
+    /* Pattern polkadot bertumpuk dengan gradasi */
+    background-image: 
+        radial-gradient(rgba(244, 114, 182, 0.4) 15%, transparent 16%),
+        radial-gradient(rgba(250, 204, 21, 0.4) 15%, transparent 16%),
+        linear-gradient(135deg, #fff1f2 0%, #fbcfe8 100%);
+    background-size: 40px 40px, 40px 40px, 100% 100%;
+    background-position: 0 0, 20px 20px, 0 0;
+    animation: bg-scroll 20s linear infinite;
+    
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes bg-scroll {
+    0% { background-position: 0 0, 20px 20px, 0 0; }
+    100% { background-position: 40px 40px, 60px 60px, 0 0; }
+}
+
+/* Latar Belakang Geometris Lucu (Gelembung) */
+.bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: float 10s infinite alternate ease-in-out;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: rgba(250, 204, 21, 0.3); /* Kuning bebek */
+    top: -50px;
+    left: -50px;
+}
+
+.shape-2 {
+    width: 400px;
+    height: 400px;
+    background: rgba(244, 114, 182, 0.2); /* Pink bubblegum */
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -3s;
+}
+
+.shape-3 {
+    width: 200px;
+    height: 200px;
+    background: rgba(251, 146, 60, 0.2); /* Oranye muda */
+    top: 30%;
+    right: -50px;
+    animation-delay: -5s;
+    animation-duration: 12s;
+}
+
+.shape-4 {
+    width: 250px;
+    height: 250px;
+    background: rgba(232, 121, 249, 0.2); /* Soft ungu/pink */
+    bottom: 20%;
+    left: -50px;
+    animation-delay: -7s;
+    animation-duration: 8s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 40px) scale(1.1); }
+}
+
+/* --- Container Utama (Glassmorphism Terang) --- */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid var(--glass-border); /* Border putih tebal ala cute UI */
+    border-radius: 30px;
+    margin: 20px auto;
+    
+    /* Bayangan lembut */
+    box-shadow: 0 20px 40px -10px rgba(244, 114, 182, 0.2),
+                0 0 40px rgba(255, 255, 255, 0.8);
+}
+
+/* --- Profil --- */
+.profile-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.avatar-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glow-ring {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #facc15, #f472b6); /* Kuning ke Pink */
+    filter: blur(12px);
+    opacity: 0.9;
+    z-index: 1;
+    animation: pulse 3s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.6; }
+    100% { transform: scale(1.05); opacity: 1; }
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 2;
+    position: relative;
+    border: 4px solid #fff; /* Border putih tebal tegas */
+    animation: float-duck 3s ease-in-out infinite alternate;
+}
+
+@keyframes float-duck {
+    0% { transform: translateY(0) rotate(-2deg); }
+    100% { transform: translateY(-8px) rotate(2deg); }
+}
+
+.username {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    background: linear-gradient(to right, #ec4899, #db2777); /* Teks gradasi pink */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* --- Link Buttons --- */
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.link-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 24px;
+    border-radius: 20px; /* Lebih membulat (bubbly) */
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.05rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.link-btn .icon {
+    position: absolute;
+    left: 24px;
+    font-size: 1.3rem;
+}
+
+/* Warna Khusus Tombol */
+.instagram {
+    background: var(--ig-gradient);
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+}
+
+.tiktok {
+    background: var(--tiktok-color);
+    box-shadow: 0 4px 15px rgba(30, 41, 59, 0.3);
+}
+
+.sociabuzz {
+    background: var(--sociabuzz-color);
+    box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);
+    color: #1e293b; /* Teks gelap di background kuning */
+}
+
+/* Hover Effects */
+.link-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.link-btn:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* --- Music Player --- */
+.music-player {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 20px;
+    border: 2px solid var(--glass-border);
+    margin-bottom: 24px;
+    box-shadow: 0 10px 25px rgba(244, 114, 182, 0.1);
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.note-icon {
+    background: var(--accent-color);
+    color: #1e293b; /* Teks gelap */
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    animation: spin-slow 4s linear infinite paused;
+    box-shadow: 0 2px 10px rgba(250, 204, 21, 0.4);
+}
+
+.note-icon i {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.note-icon.playing {
+    animation-play-state: running;
+}
+
+@keyframes spin-slow {
+    100% { transform: rotate(360deg); }
+}
+
+.song-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+.song-artist {
+    font-size: 0.8rem;
+    color: #ec4899; /* Pink artist name */
+    font-weight: 600;
+}
+
+.controls-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.play-pause-btn {
+    background: var(--tiktok-color);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 10px rgba(30, 41, 59, 0.2);
+}
+
+.play-pause-btn:hover {
+    transform: scale(1.1);
+    background: #ec4899;
+}
+
+.progress-bar-container {
+    flex-grow: 1;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.05); /* Track abu-abu tipis */
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #facc15, #f472b6); /* Kuning ke Pink */
+    border-radius: 4px;
+    position: relative;
+    transition: width 0.1s linear;
+}
+
+.progress-head {
+    display: none; /* Dihilangkan untuk tema cute, cukup gradasi */
+}
+
+.time-display {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    min-width: 35px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- Volume Control --- */
+.volume-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 0 4px;
+}
+
+.mute-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.mute-btn:hover {
+    color: #ec4899;
+    transform: scale(1.1);
+}
+
+.volume-slider {
+    flex-grow: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #facc15; /* Kuning bebek */
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.volume-slider:hover::-webkit-slider-thumb {
+    transform: scale(1.2);
+}
+
+/* --- Share Button & Toast --- */
+.share-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: white;
+    border: 2px solid var(--glass-border);
+    color: #ec4899; /* Ikon pink */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.share-btn:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 6px 15px rgba(244, 114, 182, 0.3);
+}
+
+.toast {
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 100;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.toast.show {
+    bottom: 30px;
+}
+
+/* --- Verified Badge --- */
+.verified-badge {
+    color: #38bdf8;
+    font-size: 1.2rem;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+/* --- Highlight Button (Sociabuzz) --- */
+.highlight-btn {
+    animation: pulse-glow-light 2s infinite;
+}
+
+@keyframes pulse-glow-light {
+    0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(250, 204, 21, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+}
+
+.badge {
+    position: absolute;
+    right: 16px;
+    background: #fff;
+    color: #d97706; /* Oranye gelap untuk teks badge */
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    animation: bounce-small 2s infinite;
+}
+
+@keyframes bounce-small {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+/* --- Entrance Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-header,
+.links-container .link-btn,
+.music-player {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered Delays */
+.profile-header { animation-delay: 0.1s; }
+.links-container .link-btn:nth-child(1) { animation-delay: 0.2s; }
+.links-container .link-btn:nth-child(2) { animation-delay: 0.3s; }
+.links-container .link-btn:nth-child(3) { animation-delay: 0.4s; }
+.music-player { animation-delay: 0.5s; }
+
+/* --- Icon Hover Animation --- */
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-12deg) scale(1.1); }
+    50% { transform: rotate(12deg) scale(1.1); }
+    75% { transform: rotate(-12deg) scale(1.1); }
+}
+
+.link-btn:hover .icon {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+
+
+/* --- Floating Particles (Hujan Avatar) --- */
+.particle {
+    position: fixed;
+    width: 2em;
+    height: 2em;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+    animation: float-particle 15s linear infinite;
+    pointer-events: none; /* Agar tidak menghalangi klik */
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 15px rgba(244, 114, 182, 0.2);
+}
+
+.p-1 { top: -10%; left: 10%; animation-duration: 20s; animation-delay: 0s; font-size: 2.5rem; }
+.p-2 { top: -10%; left: 30%; animation-duration: 15s; animation-delay: -5s; font-size: 1.5rem; }
+.p-3 { top: -10%; left: 70%; animation-duration: 25s; animation-delay: -2s; font-size: 3rem; }
+.p-4 { top: -10%; left: 85%; animation-duration: 18s; animation-delay: -10s; font-size: 1.8rem; }
+.p-5 { top: -10%; left: 50%; animation-duration: 22s; animation-delay: -7s; font-size: 2.2rem; }
+.p-6 { top: -10%; left: 90%; animation-duration: 17s; animation-delay: -12s; font-size: 2rem; }
+
+@keyframes float-particle {
+    0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 20px;
+        border-radius: 24px;
+        margin: 15px;
+    }
+    
+    .avatar-container {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .link-btn {
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+    
+    .username {
+        font-size: 1.6rem;
+    }
+}
